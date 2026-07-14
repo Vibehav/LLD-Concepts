@@ -13,8 +13,8 @@ public class SlotAllocationStrategyFactory {
             return new EvSlotAllocationStrategy(true);
         }
 
-        if(parkingSlotType.equals(ParkingSlotType.VIP)) return new VipSlotAllocationStrategy();
-        if(parkingSlotType.equals(ParkingSlotType.STAFF)) return new StaffSlotAllocationStrategy();
+        if(operatorPreference.equals(OperatorPreference.NONE) && parkingSlotType.equals(ParkingSlotType.VIP)) return new VipSlotAllocationStrategy();
+        if(operatorPreference.equals(OperatorPreference.NONE) && parkingSlotType.equals(ParkingSlotType.STAFF)) return new StaffSlotAllocationStrategy();
 
         return new FarthestSlotAllocationStrategy();
     }

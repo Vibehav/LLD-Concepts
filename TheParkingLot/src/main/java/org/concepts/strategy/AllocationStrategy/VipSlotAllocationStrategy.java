@@ -15,7 +15,7 @@ public class VipSlotAllocationStrategy implements SlotAllocationStrategy {
             for (ParkingSlot parkingSlot:parkingFloor.getSlots()){
                 if(parkingSlot.getParkingSlotType().equals(ParkingSlotType.VIP)
                         && parkingSlot.getParkingSlotStatus().equals(ParkingSlotStatus.EMPTY)
-                && parkingSlot.getAllowedType().equals(vehicle.getVehicleType())){
+                        && parkingSlot.getAllowedType().equals(vehicle.getVehicleType())){
                     return new SlotAllocationResult(parkingSlot,true);
                 }
             }

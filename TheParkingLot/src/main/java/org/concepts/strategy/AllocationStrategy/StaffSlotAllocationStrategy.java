@@ -14,8 +14,9 @@ public class StaffSlotAllocationStrategy implements SlotAllocationStrategy{
     public SlotAllocationResult assignSlot(ParkingLot parkingLot, Vehicle vehicle) {
         for(ParkingFloor parkingFloor: parkingLot.getFloors()){
             for(ParkingSlot parkingSlot:parkingFloor.getSlots()){
-                if(parkingSlot.getParkingSlotType().equals(ParkingSlotType.STAFF) &&
-                        parkingSlot.getParkingSlotStatus().equals(ParkingSlotStatus.EMPTY)) {
+                if(parkingSlot.getParkingSlotType().equals(ParkingSlotType.STAFF)
+                        && parkingSlot.getParkingSlotStatus().equals(ParkingSlotStatus.EMPTY)
+                        && parkingSlot.getAllowedType().equals(vehicle.getVehicleType())) {
                     return new SlotAllocationResult(parkingSlot,true);
                 }
             }
