@@ -23,9 +23,9 @@ public class GateRepository {
 
     public Gate save(Gate gate){
         if(gate.getId()!=0){
-
             gate.setUpdatedAt(new Date());
-            return gateMap.put(gate.getId(),gate);
+             gateMap.put(gate.getId(),gate);
+             return gate;
         }
 
         gate.setId(this.gateId+=1);

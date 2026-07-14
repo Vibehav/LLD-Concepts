@@ -13,7 +13,7 @@ public class VehicleRepository {
     private int vehicleId=0;
 
     public VehicleRepository(Map<String,Vehicle> vehicleMap){
-        this.vehicleMap = new HashMap<>();
+        this.vehicleMap = vehicleMap;
     }
 
     public Optional<Vehicle> findByVehicleNumber(String vehicleNumber){
@@ -28,6 +28,7 @@ public class VehicleRepository {
         if(vehicle.getVehicleNumber()!=null){
             vehicle.setUpdatedAt(new Date());
             vehicleMap.put(vehicle.getVehicleNumber(), vehicle);
+            return vehicleMap.get(vehicle.getVehicleNumber());
         }
         this.vehicleId+=1;
         vehicle.setId(vehicleId);
