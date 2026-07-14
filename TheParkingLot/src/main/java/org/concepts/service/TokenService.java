@@ -58,28 +58,29 @@ public class TokenService {
                                                                 issueTokenRequest.getVehicleType());
 
         // Step 3: Use Factory to dynamically resolve the required strategy
-        // Based on vehicle records and operator buttons (EV/Farthest)
+        // Based on vehicle records and operator buttons (EV)
         SlotAllocationStrategy strategy = SlotAllocationStrategyFactory.getStrategy(issueTokenRequest.getOperatorPreference(),
                                                                                     issueTokenRequest.getParkingSlotType());
         // Step 4: Execute the resolved allocation strategy
-        SlotAllocationResult wrapper = strategy.assignSlot(parkingLot,currVehicle); // gives parking slot + toCheckThe
+        SlotAllocationResult wrapper = strategy.assignSlot(parkingLot,currVehicle); // wrapper to identify which strategy was used
         ParkingSlot assignedSlot = wrapper.getSlot();
         if(assignedSlot==null) {
             throw new ParkingSlotNotFoundException("Parking Slot is Full");
         }
-
+        assignedSlot.setVehicle(currVehicle);
         assignedSlot.setParkingSlotStatus(ParkingSlotStatus.FILLED);
-        // remember to setHasEvCharger boolean as false. To Verify the slot is full
         assignedSlot = parkingSlotRepository.save(assignedSlot);
 
         // Generate the token
-        Token token = new Token();
-        token.setTokenNumber(UUID.randomUUID().toString());
-        token.setEntryTime(new Date());
-        token.setAssignedSlot(assignedSlot);
-        token.setEntryGate(gate);
-        token.setVehicle(currVehicle);
+        Token token = Token.builder()
+                            .setTokenNumber(UUID.randomUUID().toString())
+                            .setEntryTime(new Date())
+                            .setAssignedSlot(assignedSlot)
+                            .setEntryGate(gate)
+                            .setVehicle(currVehicle).build();
+
         token = tokenRepository.save(token);
+
 
         return token;
     }

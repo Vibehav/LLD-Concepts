@@ -17,10 +17,11 @@ public class VehicleService {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findByVehicleNumber(vehicleNumber);
         Vehicle vehicle = null;
         if(optionalVehicle.isEmpty()){
-            vehicle = new Vehicle();
-            vehicle.setVehicleNumber(vehicleNumber);
-            vehicle.setVehicleType(vehicleType);
-            vehicle.setOwnerName(ownerName);
+            vehicle = Vehicle.builder()
+                    .setOwnerName(ownerName)
+                    .setVehicleType(vehicleType)
+                    .setVehicleNumber(vehicleNumber).build();
+
 
             vehicle = vehicleRepository.save(vehicle);
         } else {
