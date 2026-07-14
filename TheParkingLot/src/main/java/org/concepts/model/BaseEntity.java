@@ -3,7 +3,7 @@ package org.concepts.model;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class BaseEntity {
+public abstract class BaseEntity {
     private int id;
     private Date createdAt;
     private Date updatedAt;
